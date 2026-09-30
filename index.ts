@@ -22,7 +22,7 @@ app.set('views', path.join(process.cwd(), 'views')); // EJSファイルを保存
 
 // 「/」にアクセスされたときの処理
 app.get('/', (req: Request, res: Response): void => {
-  res.send('Hello World!');
+  res.render('index');
 });
 
 
@@ -34,3 +34,6 @@ app.get('/', (req: Request, res: Response): void => {
 app.listen(port, (): void => {
   console.log(`Server started: http://localhost:${port}`);
 });
+
+
+
