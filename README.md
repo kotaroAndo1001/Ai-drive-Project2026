@@ -19,7 +19,12 @@ Express・TypeScriptで作成したWebサイトです。GitHubで管理し、Ver
 ## SQL
 
 - `sql/000_check_connection.sql`：接続先を確かめるための読み取り専用SQLです。NeonのSQL Editorで実行します。
+- `sql/010_setup_sample_products.sql`：授業用の商品テーブル（products）と商品3件を用意するSQLです。NeonのSQL Editorで手動実行します。
 - 実行記録は `sql/README.md` にあります。
+
+## 商品一覧
+
+- `GET /db-sample`：Neonの `products` テーブルから商品を読み取り専用で取得し、一覧表示します。
 
 ## 起動方法
 
