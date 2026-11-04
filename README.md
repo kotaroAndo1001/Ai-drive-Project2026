@@ -31,7 +31,7 @@ Express・TypeScriptで作成したWebサイトです。GitHubで管理し、Ver
 - 画面：`GET /todo`
 - API：`/api/v1/todos`（GET一覧、POST登録、PATCH完了更新、DELETE削除）
 - SQL：`sql/todo/020_create_todo_tasks.sql`（NeonのSQL Editorで手動実行）
-- 設計文書：`docs/todo/`
+- 設計文書：`docs/todo/`（要件・設計・実装手順・テスト結果）
 
 ## 起動方法
 

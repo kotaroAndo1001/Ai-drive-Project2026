@@ -11,4 +11,4 @@
 |---|---|---|---|
 | 1 | `000_check_connection.sql` | webapp-class / production ブランチ / neondb | 接続確認成功（current_database=neondb） |
 | 2 | `010_setup_sample_products.sql` | webapp-class / production ブランチ / neondb | 商品3件を確認（2026-10-28） |
-| 3 | `todo/020_create_todo_tasks.sql` | webapp-class / production ブランチ / neondb | （Neonで実行後に記入） |
+| 3 | `todo/020_create_todo_tasks.sql` | webapp-class / production ブランチ / neondb | テーブル作成成功（2026-11-04）。APIで0件取得・登録を確認 |
