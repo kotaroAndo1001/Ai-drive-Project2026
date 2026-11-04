@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODOアプリ</title>
+  <style>
+    body { font-family: sans-serif; max-width: 640px; margin: 40px auto; padding: 0 20px; }
+    .todo-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #eee; }
+    .done { text-decoration: line-through; color: #888; }
+    .error { color: #b00020; font-size: 0.9em; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h1>TODOアプリ</h1>
+
+  <form id="todo-form">
+    <input type="text" id="title-input" placeholder="新しいタスク（1〜100文字）" maxlength="100" style="width: 70%; padding: 8px;">
+    <button type="submit" style="padding: 8px 16px;">追加</button>
+  </form>
+  <p id="error-message" class="error"></p>
+
+  <h2>タスク一覧</h2>
+  <div id="todo-list">読み込み中...</div>
+
+  <script src="/js/todo.js"></script>
+  <script>
+    const api = new TodoApi();
+    const todoListEl = document.getElementById('todo-list');
+    const todoForm = document.getElementById('todo-form');
+    const titleInput = document.getElementById('title-input');
+    const errorMessageEl = document.getElementById('error-message');
+
+    async function loadTodos() {
+      try {
+        const todos = await api.list();
+        if (!todos.length) {
+          todoListEl.textContent = '';
+          const empty = document.createElement('p');
+          empty.textContent = 'TODOがありません';
+          todoListEl.appendChild(empty);
+          return;
+        }
+
+        todoListEl.textContent = '';
+        todos.forEach((todo) => {
+          const item = document.createElement('div');
+          item.className = 'todo-item';
+
+          const title = document.createElement('span');
+          title.textContent = todo.title;
+          if (todo.isDone) {
+            title.className = 'done';
+          }
+
+          const actions = document.createElement('div');
+
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.checked = todo.isDone;
+          checkbox.onchange = async () => {
+            try {
+              await api.updateDone(todo.id, checkbox.checked);
+              await loadTodos();
+            } catch (err) {
+              alert(err.message);
+              await loadTodos();
+            }
+          };
+
+          const deleteBtn = document.createElement('button');
+          deleteBtn.type = 'button';
+          deleteBtn.textContent = '削除';
+          deleteBtn.style.marginLeft = '10px';
+          deleteBtn.onclick = async () => {
+            try {
+              await api.remove(todo.id);
+              await loadTodos();
+            } catch (err) {
+              alert(err.message);
+            }
+          };
+
+          actions.appendChild(checkbox);
+          actions.appendChild(document.createTextNode(' 完了 '));
+          actions.appendChild(deleteBtn);
+          item.appendChild(title);
+          item.appendChild(actions);
+          todoListEl.appendChild(item);
+        });
+      } catch (err) {
+        todoListEl.textContent = '';
+        const failed = document.createElement('p');
+        failed.className = 'error';
+        failed.textContent = 'TODOの取得に失敗しました。';
+        todoListEl.appendChild(failed);
+      }
+    }
+
+    todoForm.onsubmit = async (e) => {
+      e.preventDefault();
+      errorMessageEl.textContent = '';
+      try {
+        await api.create(titleInput.value);
+        titleInput.value = '';
+        await loadTodos();
+      } catch (err) {
+        errorMessageEl.textContent = err.message;
+      }
+    };
+
+    loadTodos();
+  </script>
+</body>
+</html>
