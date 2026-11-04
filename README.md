@@ -26,6 +26,13 @@ Express・TypeScriptで作成したWebサイトです。GitHubで管理し、Ver
 
 - `GET /db-sample`：Neonの `products` テーブルから商品を読み取り専用で取得し、一覧表示します。
 
+## TODOアプリ（V1）
+
+- 画面：`GET /todo`
+- API：`/api/v1/todos`（GET一覧、POST登録、PATCH完了更新、DELETE削除）
+- SQL：`sql/todo/020_create_todo_tasks.sql`（NeonのSQL Editorで手動実行）
+- 設計文書：`docs/todo/`
+
 ## 起動方法
 
 ```

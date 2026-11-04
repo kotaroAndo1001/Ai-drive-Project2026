@@ -8,7 +8,7 @@
 プロジェクト直下/
 ├── index.ts                 既存ルートを残し、JSONパーサ・/todo・todoRouter だけ足す
 ├── db.ts                    既存の Pool。TODO からも同じ pool を使う
-├── public/todo/todo.js      TodoApi と画面操作（Fetch）
+├── public/js/todo.js        TodoApi と画面操作（Fetch）
 ├── views/todo/index.ejs     /todo の枠。一覧は Fetch で埋める
 ├── src/apps/todo/
 │   ├── todoRouter.ts        URL と HTTP メソッドの割り当て
@@ -24,7 +24,7 @@
 | `todoController.ts` | 400 / 422 / 404 の判定。成功JSON。Model の例外を 500 / 503 に分ける |
 | `todoModel.ts` | `todo_tasks` への SELECT / INSERT / UPDATE / DELETE |
 | `views/todo/index.ejs` | 見出し、登録フォーム、空メッセージ、一覧の入れ物、`/todo/todo.js` の読み込み |
-| `public/todo/todo.js` | `TodoApi` クラス。ページ読み込み後に一覧取得 |
+| `public/js/todo.js` | `TodoApi` クラス。ページ読み込み後に一覧取得 |
 
 ## 2 リクエストはどこを通るか
 
@@ -128,7 +128,7 @@
 
 `GET /todo` は EJS の枠だけ返す。TODO配列はサーバから埋め込まない。
 
-`TodoApi`（`public/todo/todo.js`）:
+`TodoApi`（`public/js/todo.js`）:
 
 | メソッド | Fetch |
 |---|---|

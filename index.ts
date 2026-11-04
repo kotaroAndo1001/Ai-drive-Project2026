@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import { pool } from './db';
+import { todoRouter } from './src/apps/todo/todoRouter';
 
 
 const app = express(); // Expressアプリケーションを作成
@@ -10,6 +11,7 @@ const port: number = 3000; // ローカルで使用するポート番号
 // ------------------------------
 // Expressの基本設定
 // ------------------------------
+app.use(express.json()); // JSON API用
 app.use(express.urlencoded({ extended: true })); // フォームから送信されたデータを受け取れるようにする
 app.use(express.static(path.join(process.cwd(), 'public'))); // CSSや画像などの静的ファイルを公開する
 app.set('view engine', 'ejs'); // テンプレートエンジンにEJSを設定
@@ -56,6 +58,13 @@ app.get('/db-sample', async (_req: Request, res: Response): Promise<void> => {
     res.status(503).send('商品一覧を表示できません');
   }
 });
+
+
+// 「/todo」画面と TODO API
+app.get('/todo', (_req: Request, res: Response): void => {
+  res.render('todo/index');
+});
+app.use('/api/v1/todos', todoRouter);
 
 
 // ------------------------------
