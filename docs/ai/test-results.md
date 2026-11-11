@@ -1,7 +1,7 @@
 # AI質問アプリ テスト結果
 
-対象ブランチ: `feature/ai-app`（未 push）  
-対象環境: Local（http://localhost:3000）  
+対象ブランチ: `feature/ai-app`（commit `ef784ea`、origin へ push 済み）  
+対象環境: Local（http://localhost:3000）。Preview / Production はデプロイ後に追記  
 記録日: 2026-11-11  
 秘密値（APIキー・接続文字列）は記載しない。
 
@@ -46,5 +46,5 @@
 ## 5 提出用（記入待ち）
 
 - GitHub: https://github.com/kotaroAndo1001/Ai-drive-Project2026
-- PR: （push 後に作成）
-- Preview / Production: （デプロイ後）
+- PR作成: https://github.com/kotaroAndo1001/Ai-drive-Project2026/pull/new/feature/ai-app
+- Preview / Production: Vercel デプロイ後に URL を追記。Production は `AI_DEMO_ENABLED=false`

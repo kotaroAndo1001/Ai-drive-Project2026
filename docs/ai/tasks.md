@@ -13,4 +13,4 @@
 | TASK-07 | 異常系・回帰 | F005,N003 | テスト表に記録 |
 | TASK-08 | Preview・提出 | F006 | Production停止・文書更新 |
 
-進捗: TASK-01〜07 までローカル実装・主要テスト記録済み。TASK-08（commit/push・Preview・PR・Production停止）が残り。
+進捗: TASK-01〜07 済み。TASK-08 は commit/push 済み（`ef784ea`）。PR作成と Vercel の Preview/Production 停止確認が残り。

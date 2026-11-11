@@ -1,8 +1,8 @@
 # AI質問アプリ 作業報告
 
 - 日付・学籍番号・氏名：（本人記入）
-- 対象ブランチ／コミット／PR：`feature/ai-app`（コミット・PR は push 後に追記）
-- 対象環境：Local（Preview は未実施）
+- 対象ブランチ／コミット／PR：`feature/ai-app` / `ef784ea` / PRは作成リンクから開く
+- 対象環境：Local（Preview は Vercel デプロイ後）
 
 ## 要望から決めたこと
 
