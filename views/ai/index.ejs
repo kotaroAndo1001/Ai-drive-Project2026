@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI質問</title>
+  <style>
+    body { font-family: sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; }
+    textarea { width: 100%; min-height: 96px; padding: 8px; box-sizing: border-box; }
+    button { margin-top: 8px; padding: 8px 16px; }
+    .item { border-bottom: 1px solid #ddd; padding: 12px 0; }
+    .meta { color: #666; font-size: 0.85em; }
+    .error { color: #b00020; }
+    .empty { color: #666; }
+  </style>
+</head>
+<body>
+  <h1>AI質問</h1>
+  <p><a href="/">トップへ</a> / <a href="/todo">TODOへ</a></p>
+
+  <form id="ask-form">
+    <label for="prompt">質問</label>
+    <textarea id="prompt" maxlength="8000" placeholder="質問を入力（1〜2000文字）"></textarea>
+    <button type="submit" id="submit-btn">送信</button>
+  </form>
+  <p id="status" class="error"></p>
+
+  <h2>履歴</h2>
+  <div id="history">読み込み中...</div>
+
+  <script src="/js/ai.js"></script>
+</body>
+</html>
