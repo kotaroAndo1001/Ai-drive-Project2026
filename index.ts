@@ -3,6 +3,7 @@ import path from 'path';
 import { pool } from './db';
 import { todoRouter } from './src/apps/todo/todoRouter';
 import { aiRouter } from './src/apps/ai/aiRouter';
+import { aiV2Router } from './src/apps/ai/v2/v2Router';
 import { requireAiDemoEnabled } from './src/apps/ai/aiMiddleware';
 
 
@@ -13,7 +14,13 @@ const port: number = 3000; // ローカルで使用するポート番号
 // ------------------------------
 // Expressの基本設定
 // ------------------------------
-// AI API は 16KiB 制限を先に適用（他 API より前に置く）
+// AI API は 16KiB 制限を先に適用（他 API より前に置く）。V2を先にマウントする
+app.use(
+  '/api/ai/v2',
+  express.json({ limit: 16 * 1024 }),
+  requireAiDemoEnabled,
+  aiV2Router
+);
 app.use(
   '/api/ai',
   express.json({ limit: 16 * 1024 }),
@@ -79,6 +86,11 @@ app.use('/api/v1/todos', todoRouter);
 // 「/ai」画面（API は上部で /api/ai に登録済み）
 app.get('/ai', (_req: Request, res: Response): void => {
   res.render('ai/index');
+});
+
+// 「/ai/v2」画面
+app.get('/ai/v2', (_req: Request, res: Response): void => {
+  res.render('ai/v2/index');
 });
 
 
