@@ -1,9 +1,10 @@
 # AI対話アプリ V2 テスト結果
 
-対象ブランチ: `feature/ai-app-v2`  
+対象ブランチ: `feature/ai-app-v2`（commit `be3144c`、push 済み）  
 対象環境: Local（http://localhost:3000）  
 記録日: 2026-11-18  
-秘密値は記載しない。
+秘密値は記載しない。  
+PR作成: https://github.com/kotaroAndo1001/Ai-drive-Project2026/pull/new/feature/ai-app-v2
 
 | テストID | 対象環境 | 操作 | 期待結果 | 実測 | 判定 |
 |---|---|---|---|---|---|
