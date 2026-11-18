@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI対話 V2</title>
+  <style>
+    body { font-family: sans-serif; max-width: 880px; margin: 32px auto; padding: 0 16px; }
+    .layout { display: grid; grid-template-columns: 240px 1fr; gap: 20px; }
+    @media (max-width: 720px) { .layout { grid-template-columns: 1fr; } }
+    .conv { cursor: pointer; padding: 8px; border-bottom: 1px solid #ddd; }
+    .conv.active { background: #eef6ff; font-weight: bold; }
+    textarea { width: 100%; min-height: 80px; box-sizing: border-box; padding: 8px; }
+    button { margin-top: 8px; padding: 8px 14px; }
+    .item { border-bottom: 1px solid #eee; padding: 10px 0; }
+    .meta { color: #666; font-size: 0.85em; }
+    .error { color: #b00020; }
+    .empty { color: #666; }
+  </style>
+</head>
+<body>
+  <h1>AI対話 V2</h1>
+  <p><a href="/">トップ</a> / <a href="/ai">AI V1</a> / <a href="/todo">TODO</a></p>
+
+  <div class="layout">
+    <aside>
+      <h2>会話</h2>
+      <form id="new-form">
+        <input id="title" type="text" maxlength="100" placeholder="会話名（1〜50文字）" style="width:100%;box-sizing:border-box;padding:6px;">
+        <button type="submit" id="new-btn">新規作成</button>
+      </form>
+      <div id="conversations">読み込み中...</div>
+    </aside>
+
+    <section>
+      <h2 id="current-title">会話を選択してください</h2>
+      <div id="history">履歴がありません</div>
+      <form id="ask-form">
+        <label for="prompt">質問</label>
+        <textarea id="prompt" placeholder="この会話への質問（1〜2000文字）"></textarea>
+        <button type="submit" id="ask-btn" disabled>送信</button>
+      </form>
+      <p id="status" class="error"></p>
+    </section>
+  </div>
+
+  <script src="/js/ai-v2.js"></script>
+</body>
+</html>

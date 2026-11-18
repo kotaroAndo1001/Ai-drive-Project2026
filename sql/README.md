@@ -13,3 +13,4 @@
 | 2 | `010_setup_sample_products.sql` | webapp-class / production ブランチ / neondb | 商品3件を確認（2026-10-28） |
 | 3 | `todo/020_create_todo_tasks.sql` | webapp-class / production ブランチ / neondb | テーブル作成成功（2026-11-04）。APIで0件取得・登録を確認 |
 | 4 | `ai/030_create_ai_qa_logs.sql` | webapp-class / production ブランチ / neondb | テーブル作成成功（2026-11-11）。history 0件・模擬 ask 201 を確認 |
+| 5 | `ai/040_create_ai_conversations.sql` | webapp-class / production ブランチ / neondb | テーブル作成成功（2026-11-18）。A/B作成・文脈送信を確認 |

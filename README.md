@@ -63,6 +63,16 @@ Express・TypeScriptで作成したWebサイトです。GitHubで管理し、Ver
 - ローカル：実 Gemini での質問保存、履歴、空白入力 400、デモ停止 503、TOP/TODO 回帰を確認（詳細は `docs/ai/test-results.md`）
 - 未実施：オフライン送信・連打の画面実測、Preview/PR/Production 停止の提出用確認
 
+## AI対話アプリ V2
+
+話題ごとに会話を分け、同じ会話では直近5往復を Gemini に渡して追加質問できます。画面表示は最新20往復です。
+
+- 画面：`GET /ai/v2`
+- API：`/api/ai/v2/conversations`、`/api/ai/v2/conversations/:id/turns`
+- SQL：`sql/ai/040_create_ai_conversations.sql`
+- 文書：`docs/ai/v2/`
+- V1・TOP・TODO は維持。公開時は `AI_DEMO_ENABLED` で V2 API も停止可能
+
 ## 起動方法
 
 ```
