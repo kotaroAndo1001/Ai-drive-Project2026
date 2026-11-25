@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>リアルタイムチャット</title>
+  <style>
+    body { font-family: sans-serif; max-width: 720px; margin: 32px auto; padding: 0 16px; }
+    .status { padding: 8px 12px; border-radius: 6px; background: #f2f4f7; color: #333; }
+    .status.ok { background: #eaf7ee; color: #1d6b35; }
+    .status.warn { background: #fff6e5; color: #8a5a00; }
+    .status.error { background: #fdecee; color: #b00020; }
+    .notice { border: 1px solid #f0c36d; background: #fff8e6; padding: 16px; border-radius: 8px; margin-top: 16px; }
+    #message-list { list-style: none; padding: 0; margin: 16px 0; border-top: 1px solid #eee; max-height: 60vh; overflow-y: auto; }
+    #message-list li { border-bottom: 1px solid #eee; padding: 8px 0; }
+    .meta { color: #666; font-size: 0.85em; }
+    .name { font-weight: bold; margin-right: 8px; color: #222; }
+    .body { white-space: pre-wrap; overflow-wrap: anywhere; margin-top: 4px; }
+    .empty { color: #666; }
+    form label { display: block; margin-top: 8px; font-size: 0.9em; }
+    input[type="text"], textarea { width: 100%; box-sizing: border-box; padding: 8px; font-size: 1em; }
+    textarea { min-height: 72px; }
+    button { margin-top: 8px; padding: 8px 16px; }
+    .error { color: #b00020; font-size: 0.9em; }
+    .counter { color: #666; font-size: 0.8em; text-align: right; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <h1>リアルタイムチャット</h1>
+  <p><a href="/">トップ</a> / <a href="/todo">TODO</a> / <a href="/ai">AI質問</a></p>
+
+  <p id="chat-status" class="status" role="status" aria-live="polite">接続しています…</p>
+
+  <section id="full-notice" class="notice" hidden>
+    <strong>満席です</strong>
+    <p id="full-message">このルームは定員に達しています。しばらくしてから再試行してください。</p>
+    <button type="button" id="full-retry">再試行</button>
+  </section>
+
+  <section id="error-notice" class="notice" hidden>
+    <p id="error-text"></p>
+    <button type="button" id="error-retry">再試行</button>
+  </section>
+
+  <section id="chat-room" hidden>
+    <ul id="message-list" aria-label="投稿一覧"></ul>
+
+    <form id="chat-form" novalidate>
+      <label for="username">ユーザー名（1〜50文字）</label>
+      <input type="text" id="username" name="username" maxlength="50" autocomplete="nickname">
+      <label for="comment">コメント（1〜500文字）</label>
+      <textarea id="comment" name="comment" maxlength="500"></textarea>
+      <div id="comment-counter" class="counter">0 / 500</div>
+      <button type="submit" id="send-button" disabled>送信</button>
+      <p id="form-error" class="error" role="alert"></p>
+    </form>
+  </section>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/chat/chat.js"></script>
+</body>
+</html>
