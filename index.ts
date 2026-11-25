@@ -5,10 +5,13 @@ import { todoRouter } from './src/apps/todo/todoRouter';
 import { aiRouter } from './src/apps/ai/aiRouter';
 import { aiV2Router } from './src/apps/ai/v2/v2Router';
 import { requireAiDemoEnabled } from './src/apps/ai/aiMiddleware';
+import { Server as SocketIOServer } from 'socket.io';
+import { chatRouter } from './src/apps/chat/chatRouter';
+import { attachChat } from './src/apps/chat/chatService';
 
 
 const app = express(); // Expressアプリケーションを作成
-const port: number = 3000; // ローカルで使用するポート番号
+const port: number = Number(process.env.PORT) || 3000; // ローカルで使用するポート番号（2台検証時は PORT=3001 など）
 
 
 // ------------------------------
@@ -29,6 +32,8 @@ app.use(
 );
 app.use(express.json()); // JSON API用（TODO 等）
 app.use(express.urlencoded({ extended: true })); // フォームから送信されたデータを受け取れるようにする
+// 「/chat」画面と /api/chat/*。public/chat/ フォルダがあるため、static による /chat → /chat/ リダイレクトより前に登録する
+app.use(chatRouter);
 app.use(express.static(path.join(process.cwd(), 'public'))); // CSSや画像などの静的ファイルを公開する
 app.set('view engine', 'ejs'); // テンプレートエンジンにEJSを設定
 app.set('views', path.join(process.cwd(), 'views')); // EJSファイルを保存するフォルダーを指定
@@ -126,9 +131,26 @@ app.use((err: unknown, _req: Request, res: Response, next: express.NextFunction)
 // ------------------------------
 
 
-app.listen(port, (): void => {
+const httpServer = app.listen(port, (): void => {
   console.log(`Server started: http://localhost:${port}`);
 });
+
+// 同じHTTPサーバーに Socket.IO を接続する（別ポートで二重に listen しない）。
+// Vercel Functions は WebSocket サーバーを常駐できないため接続しない。
+if (!process.env.VERCEL && httpServer) {
+  const io = new SocketIOServer(httpServer);
+  const chat = attachChat(io);
+  const shutdown = (): void => {
+    chat
+      .stop()
+      .finally(() => {
+        io.close();
+        process.exit(0);
+      });
+  };
+  process.once('SIGINT', shutdown);
+  process.once('SIGTERM', shutdown);
+}
 
 
 

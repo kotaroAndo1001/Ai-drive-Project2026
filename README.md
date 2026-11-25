@@ -73,6 +73,22 @@ Express・TypeScriptで作成したWebサイトです。GitHubで管理し、Ver
 - 文書：`docs/ai/v2/`
 - V1・TOP・TODO は維持。公開時は `AI_DEMO_ENABLED` で V2 API も停止可能
 
+## リアルタイムチャット
+
+利用者同士がユーザー名とコメントで会話します（AI 応答なし）。Socket.IO で同じルームの入室者に配信し、投稿は Neon に保存します。
+
+- 画面：`GET /chat`（TOP からリンク）
+- API：`GET /api/chat/status`（定員と入室数のみ。履歴は入室を許可した Socket にだけ返す）
+- Socket イベント：`chat:join`・`chat:send`（ack あり）、`chat:message`（配信）
+- 定員：ルーム `lobby` に全インスタンス合計5接続。席は DB（`chat_room_seats`）で管理
+- 複数インスタンス：DB を2秒ごとに確認して新着を配信（Redis 不要）
+- 入力：ユーザー名1〜50文字、コメント1〜500文字（前後空白を除いて判定）
+- SQL：`sql/chat/050_create_chat_tables.sql`
+- コード：`src/apps/chat/`、`views/chat/index.ejs`、`public/chat/chat.js`
+- 文書：`docs/chat/`（01 要望〜06 テスト結果）
+- 検証：`PORT=3000` と `PORT=3001` で2つ起動し `node tests/chat/socket-check.mjs`（DB にテスト投稿が保存される）
+- Vercel 上では Socket.IO を起動しない（画面は表示され、接続できない旨を案内）
+
 ## 起動方法
 
 ```
